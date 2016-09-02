@@ -1,0 +1,256 @@
+@import "compass";
+
+// ベースカラー
+$baseColor: #ead9d1;//#d8cac1;
+
+// サブカラー
+$subColor: #ECC8B8;
+
+// アクセントカラー
+$keyColor: #E6785C;
+
+// 文字色
+$fontColor: #5A5654;
+
+
+// font-family
+$baseFontFamily :"游ゴシック", YuGothic, "メイリオ",Verdana, "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+
+
+// ブレイクポイントの設定
+$breakpointSP: "(max-width:768px)";
+
+/*--------------------------------------------------
+ *  共通
+ *--------------------------------------------------*/
+html{ font-size: 62.5%; }
+
+body{
+  color: $fontColor;
+  font-size: 1.4rem;
+  font-family:$baseFontFamily;
+  line-height:1.6;
+  letter-spacing: 0.1em; 
+  background-color: $baseColor;
+}
+
+// リンク
+a {
+  // $normal, [$hover], [$active], [$visited], [$focus] の順
+  //@include link-colors($keyColor, darken($keyColor, 10%), lighten($keyColor, 5%), darken($keyColor, 10%));
+  text-decoration: none;
+}
+
+// インライン要素の中央寄せ
+.text-center {
+  text-align: center;
+}
+
+// ブロック要素の中央寄せ
+.block-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+// フォント
+.abel {
+  font-family: 'Abel', sans-serif;
+}
+.uppercase {
+  text-transform: uppercase;
+}
+.capitalize {
+    text-transform: capitalize;
+}
+
+
+/*--------------------------------------------------
+ *  header
+ *--------------------------------------------------*/
+
+header {
+    position: relative;
+    width:100%;
+    height:500px;
+    
+    background: {
+        image: url('../img/header.jpg');
+        position: center center;
+        repeat: no-repeat;
+        color: $subColor;
+        size: cover;
+    }
+
+    /* flexboxで中央寄せ */
+	@include display-flex();          
+	@include justify-content(center); 
+	@include align-items(center); 
+    
+    // header > #site-title
+    #site-title {
+        z-index: 3;
+        h1 {
+            font-size: 4.2rem;
+            color: $keyColor;
+            line-height: 1;
+            @extend .abel;
+            @extend .uppercase;
+            @extend .text-center;
+            small {
+                font-size:2.4rem;
+                @extend .capitalize;
+            }
+        }
+        p {
+            margin-top: 1rem;
+            font-size: 1.6rem;
+            color: #fff;
+            @extend .text-center;
+        }
+    }
+    
+    // 半透明
+    .cover {
+        z-index: 2;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(64,64,64,0.25);
+    }
+}
+
+
+/*--------------------------------------------------
+ *  main
+ *--------------------------------------------------*/
+
+// main > 共通
+section {
+    padding: 60px 0;
+    .container {
+        width: 90%;
+        @extend .block-center;
+    }
+    h2 {
+        font-size: 3.2rem;
+        margin-bottom: 30px;
+        @extend .text-center;
+    }
+}
+
+// main > suggest
+#suggest {
+    .container {
+        /* flexbox で均等配置 */
+    	@include display-flex();          
+    	@include justify-content(space-between); 
+    	@include flex-direction(row);
+    	
+        .suggest-box {
+            margin: 0 10px;
+            padding: 20px;
+            background-color: $subColor;
+            @include border-radius(6px);
+            @include flex(1);
+            h3 {
+                font-size: 1.8rem;
+                font-weight: bold;
+                margin-bottom: 10px;
+            }
+        }
+    }
+}
+
+// main > subscribe
+#subscribe {
+    background-color: $subColor;
+    @extend .text-center;
+    
+    a {
+        display:block;
+        width: 300px;
+        margin: 0 auto;
+        
+        .btn-subscribe {
+            padding: 15px 0;
+            background-color: $keyColor;
+            @extend .text-center;
+            @include border-radius(6px);
+            
+            font-size: 1.6rem;
+            color: #fff;
+            &:hover, &:visited {background-color: darken($keyColor, 10%);}
+            &:active {background-color: lighten($keyColor, 5%);}
+        }
+    }
+}
+
+
+/*--------------------------------------------------
+ *  モバイルでの設定
+ *--------------------------------------------------*/
+
+@media #{$breakpointSP} {
+    // header
+    header {
+        height:250px;
+        h1 {
+            font-size: 2.8rem;
+            small {
+                font-size: 1.6rem;
+            }
+        }
+
+        // site-title
+        #site-title {
+            top: 1.5rem;
+            h1 {
+                small {
+                    display: block;
+                }
+            }
+            p {
+                width: 90%;
+                margin: {
+                    left: auto;
+                    right: auto;
+                }
+                font-size: 1.4rem;
+                br {
+                    display:none; // モバイルでは改行しない
+                }
+            }
+        }
+    }
+    
+    section {
+        h2 {
+            font-size: 2.4rem;
+            margin-bottom: 20px;
+        }
+    }
+    
+    // main > suggest
+    #suggest {
+        .container {
+            @include flex-direction(column);
+            .suggest-box {
+                margin: 10px 0;
+            }
+        }
+    }
+    
+    // main > subscribe
+    #subscribe {
+        a {
+            .btn-subscribe {
+                &:hover {
+                    background-color: $keyColor;
+                }
+            }
+        }
+    }
+}
